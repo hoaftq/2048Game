@@ -1,3 +1,13 @@
+terraform {
+  backend "s3" {
+    bucket         = "game2048-terraform-state"
+    region         = "ap-southeast-1"
+    key            = "test/terraform.tfstate"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
+
 provider "aws" {
   region = "ap-southeast-1"
 

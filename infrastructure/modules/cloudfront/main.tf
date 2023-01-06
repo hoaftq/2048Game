@@ -1,6 +1,6 @@
 
 resource "aws_s3_bucket" "origin_bucket" {
-  bucket_prefix = var.origin_id
+  bucket_prefix = "${var.origin_id}-"
 }
 
 data "aws_iam_policy_document" "origin_bucket_policy_document" {
@@ -70,4 +70,21 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
     viewer_protocol_policy = "redirect-to-https"
   }
+}
+
+locals {
+  extension_to_mime_types = {
+    "html" = "text/html",
+    "js"   = "text/javascript",
+    "css"  = "text/css"
+  }
+}
+
+resource "aws_s3_object" "uploaded_files" {
+  bucket       = aws_s3_bucket.origin_bucket.id
+  for_each     = fileset(var.upload_path, "**")
+  key          = each.value
+  source       = "${var.upload_path}/${each.value}"
+  etag         = filemd5("${var.upload_path}/${each.value}")
+  content_type = local.extension_to_mime_types[trimprefix(regex("\\.\\w+$", each.value), ".")]
 }

@@ -1,7 +1,6 @@
-### 248Game
-Well-known 248 game written using JavaScript &amp; JQuery. Difference from other implementations it supports many board sizes 4x4, 5x5, 6x6, 7x7 and 8x8. It is also responsive and supports mobile devices as well as computers.
-
-It is using MVC pattern where the program is devided into 3 parts with coressponding files controller.js, logic.js and view.js
+### 2048Game
+Responsive 2048 game written using JavaScript &amp; JQuery. One difference from other implementations is that it supports many board sizes 4x4, 5x5, 6x6, 7x7 and 8x8.  
+It follows MVC pattern where the program is divided into 3 parts with coressponding files controller.js, logic.js and view.js
   - **Controller** (controller.js)
       - Entry point for user interation
       - Coordinate logic and view
@@ -11,7 +10,7 @@ It is using MVC pattern where the program is devided into 3 parts with coresspon
     Manage a game board array behind the scene
       - Put new titles
       - Calculate game board after a move
-      - Determine when the game is over
+      - Determine if the game is over
       - ect
 
   - **View** (view.js)
@@ -19,5 +18,5 @@ It is using MVC pattern where the program is devided into 3 parts with coresspon
       - Display new titles, move titles with animation
       - ect
 
-This is a 7x7 game board screenshot
-<img src="248Game.jpg">
+There is also a pipeline with Jenkins and Terraform to create and deploy the game to AWS CloudFront.  
+Give the game a try [here](https://d25teof8rvvecp.cloudfront.net)

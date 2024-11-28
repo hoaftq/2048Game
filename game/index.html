@@ -13,22 +13,7 @@
     <script src="view.js"></script>
     <script src="logic.js"></script>
     <script src="controller.js"></script>
-    <script>
-        $(function () {
-            var controller;
-            $('select').change(function (e) {
-                if (controller) {
-                    controller.destroy();
-                }
-
-                var size = parseInt($(this).val());
-                controller = new GameController('#container', size, size);
-                controller.start();
-            }).trigger('change');
-
-            $('#about').nextAll().remove();
-        })
-    </script>
+    <script src="start.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -49,6 +34,7 @@
         }
 
         @media screen and (min-width: 768px) {
+
             #instruction,
             .ui-select {
                 width: 60%;

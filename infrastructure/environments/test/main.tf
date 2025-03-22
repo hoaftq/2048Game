@@ -24,7 +24,7 @@ module "cloudfront" {
   source = "../../modules/cloudfront"
 
   origin_id   = "game2048-test"
-  upload_path = "../../../game"
+  upload_path = "../../../game/dist"
 }
 
 output "domain_name" {

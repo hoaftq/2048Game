@@ -1,6 +1,8 @@
 const { ModuleFederationPlugin } = require('webpack').container;
 const DefinePlugin = require('webpack').DefinePlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const path = require('path');
 
 const isProduction = process.env.NODE_ENV == 'production';
@@ -14,12 +16,22 @@ const config = {
     experiments: {
         outputModule: true
     },
+    optimization: {
+        minimize: isProduction,
+        minimizer: [
+            new TerserPlugin({
+                test: /\.js$/,
+                exclude: /\.mjs$/,
+            })
+        ]
+    },
     plugins: [
         new CopyWebpackPlugin({
             patterns: [
                 './*.html',
                 './*.css',
                 './lib/**',
+                './mfe/**',
                 {
                     from: "./*.js",
                     globOptions: {
@@ -38,7 +50,9 @@ const config = {
             }
         }),
         new DefinePlugin({
-            APP_URL: JSON.stringify('http://localhost:8083')
+            APP_URL:  isProduction
+                      ? 'https://d25teof8rvvecp.cloudfront.net'
+                      : 'http://localhost:8083'
         })
     ],
     module: {
@@ -53,11 +67,6 @@ const config = {
 };
 
 module.exports = () => {
-    if (isProduction) {
-        config.mode = 'production';
-
-    } else {
-        config.mode = 'development';
-    }
+    config.mode =  isProduction ? 'production' : 'development';
     return config;
 };

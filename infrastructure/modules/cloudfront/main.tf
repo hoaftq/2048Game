@@ -76,6 +76,7 @@ locals {
   extension_to_mime_types = {
     "html" = "text/html",
     "js"   = "text/javascript",
+    "mjs"  = "text/javascript",
     "css"  = "text/css"
   }
 }

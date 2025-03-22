@@ -69,6 +69,28 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.headers_policy.id
+  }
+}
+
+resource "aws_cloudfront_response_headers_policy" "headers_policy" {
+  name = "header-policy"
+
+  cors_config {
+    access_control_allow_credentials = false
+    access_control_allow_headers {
+      items = ["*"]
+    }
+
+    access_control_allow_methods {
+      items = ["GET"]
+    }
+
+    access_control_allow_origins {
+      items = ["https://wonderful-field-08b40e000.6.azurestaticapps.net"]
+    }
+
+    origin_override = true
   }
 }
 

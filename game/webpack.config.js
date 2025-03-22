@@ -50,9 +50,9 @@ const config = {
             }
         }),
         new DefinePlugin({
-            APP_URL:  isProduction
-                      ? 'https://d25teof8rvvecp.cloudfront.net'
-                      : 'http://localhost:8083'
+            APP_URL:  JSON.stringify(isProduction
+                                     ? 'https://d25teof8rvvecp.cloudfront.net'
+                                     : 'http://localhost:8083')
         })
     ],
     module: {
